@@ -36,4 +36,6 @@ model DiemThi {
   maNgoaiNgu String?
 
   @@unique([sbd, maMon])
+  @@index([maMon, diem])
+  @@index([maMon, sbd])
 }

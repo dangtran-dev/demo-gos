@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
-import { ImportModule } from './import/import.module';
+import { ScoresModule } from './scores/scores.module';
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { ImportModule } from './import/import.module';
         host: config.get('DATABASE_HOST'),
         port: config.get<number>('DATABASE_PORT'),
         username: config.get('DATABASE_USER'),
-        password: config.get('DATABASE_PASSWORD'),
+        password: config.get<string>('DATABASE_PASSWORD'),
         database: config.get('DATABASE_NAME'),
         autoLoadEntities: true,
 
@@ -27,7 +27,7 @@ import { ImportModule } from './import/import.module';
       }),
     }),
     PrismaModule,
-    ImportModule,
+    ScoresModule,
   ],
   controllers: [AppController],
   providers: [AppService],
