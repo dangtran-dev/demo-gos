@@ -49,20 +49,17 @@ export class ScoresService {
       });
     }
 
-    return {
-      levels: [
-        { key: 'excellent', label: '>= 8' },
-        { key: 'good', label: '6 – < 8' },
-        { key: 'average', label: '4 – < 6' },
-        { key: 'poor', label: '< 4' },
-      ],
-      data,
-    };
+    return data;
   }
 
   async getTopStudentsA() {
     const data = await this.prisma.$queryRaw`
-    SELECT ts."sbd", SUM(dt."diem") AS "totalScore"
+    SELECT 
+      ts."sbd", 
+      MAX(CASE WHEN dt."maMon" = 'TOAN' THEN dt."diem" END) AS "math",
+      MAX(CASE WHEN dt."maMon" = 'LY'   THEN dt."diem" END) AS "physics",
+      MAX(CASE WHEN dt."maMon" = 'HOA'  THEN dt."diem" END) AS "chemistry", 
+      SUM(dt."diem") AS "totalScore"
     FROM "ThiSinh" ts JOIN "DiemThi" dt
     ON ts."sbd" = dt."sbd"
     WHERE dt."maMon" IN ('TOAN', 'LY', 'HOA')

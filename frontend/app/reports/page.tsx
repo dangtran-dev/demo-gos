@@ -1,0 +1,74 @@
+"use client";
+
+import { getTopStudentsA } from "@/api/scores";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import { useQuery } from "@tanstack/react-query";
+
+export default function ReportPage() {
+    const { data: list } = useQuery({
+        queryKey: ["list-top-10"],
+        queryFn: getTopStudentsA,
+    });
+
+    return (
+        <div className="pt-10">
+            <div className="w-5xl mx-auto space-y-8">
+                <div>
+                    <Card>
+                        <CardHeader className="text-2xl font-bold">
+                            Top 10 thí sinh có điểm khối A cao nhất
+                        </CardHeader>
+
+                        <CardContent>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Số báo danh</TableHead>
+
+                                        <TableHead>Điểm toán</TableHead>
+
+                                        <TableHead>Điểm lí</TableHead>
+
+                                        <TableHead>Điểm hoá</TableHead>
+
+                                        <TableHead>Tổng điểm</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+
+                                <TableBody>
+                                    {list?.map((item) => (
+                                        <TableRow key={item.sbd}>
+                                            <TableCell>{item.sbd}</TableCell>
+
+                                            <TableCell>{item.math}</TableCell>
+
+                                            <TableCell>
+                                                {item.physics}
+                                            </TableCell>
+
+                                            <TableCell>
+                                                {item.chemistry}
+                                            </TableCell>
+
+                                            <TableCell>
+                                                {item.totalScore}
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
+        </div>
+    );
+}

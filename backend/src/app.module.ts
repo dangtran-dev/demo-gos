@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { ScoresModule } from './scores/scores.module';
+import { SubjectsModule } from './subjects/subjects.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ScoresModule } from './scores/scores.module';
     }),
     PrismaModule,
     ScoresModule,
+    SubjectsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
