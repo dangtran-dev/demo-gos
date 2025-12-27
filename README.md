@@ -27,7 +27,7 @@ Hướng dẫn chạy ứng dụng:
     - npm install
     - npx prisma generate
     - npx prisma migrate dev --name init
-    - npx prisma db seed
+    - npm run prisma:seed
     - npm run start:dev
 
 4. Chạy frontend (NextJS):
