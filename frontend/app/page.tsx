@@ -35,7 +35,6 @@ export default function SearchScoresPage() {
 
     const maNgoaiNgu = useMemo(() => {
         const score = scores?.find((score) => score.maMon === "NGOAI_NGU");
-
         return score?.maNgoaiNgu;
     }, [scores]);
 
@@ -57,19 +56,19 @@ export default function SearchScoresPage() {
     });
 
     return (
-        <div className="pt-10">
-            <div className="w-5xl mx-auto space-y-8">
+        <div className="pt-6 md:pt-10">
+            <div className="max-w-6xl mx-auto px-4 md:px-6 space-y-8">
                 <Card>
-                    <CardHeader className="text-2xl font-bold">
+                    <CardHeader className="text-lg md:text-2xl font-bold">
                         User Registration
                     </CardHeader>
 
-                    <CardContent>
+                    <CardContent className="space-y-4">
                         <Label htmlFor="registration">
                             Registration Number:
                         </Label>
 
-                        <div className="flex items-center gap-5 w-112.5 mt-4">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 sm:max-w-lg">
                             <Input
                                 id="registration"
                                 type="text"
@@ -77,7 +76,11 @@ export default function SearchScoresPage() {
                                 onChange={(e) => setInputSbd(e.target.value)}
                             />
 
-                            <Button onClick={handleSubmit} disabled={!inputSbd}>
+                            <Button
+                                onClick={handleSubmit}
+                                disabled={!inputSbd}
+                                className="sm:w-auto w-full"
+                            >
                                 Submit
                             </Button>
                         </div>
@@ -85,45 +88,61 @@ export default function SearchScoresPage() {
                 </Card>
 
                 <Card>
-                    <CardHeader className="text-2xl font-bold">
+                    <CardHeader className="text-lg md:text-2xl font-bold">
                         Detailed Scores
                     </CardHeader>
 
                     <CardContent>
                         {scores ? (
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        {subjects?.map((subject) => (
-                                            <TableHead key={subject.id}>
-                                                {subject.tenMon}
+                            <div className="overflow-x-auto">
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow>
+                                            {subjects?.map((subject) => (
+                                                <TableHead
+                                                    key={subject.id}
+                                                    className="whitespace-nowrap"
+                                                >
+                                                    {subject.tenMon}
+                                                </TableHead>
+                                            ))}
+
+                                            <TableHead className="whitespace-nowrap">
+                                                Mã ngoại ngữ
                                             </TableHead>
-                                        ))}
+                                        </TableRow>
+                                    </TableHeader>
 
-                                        <TableHead>Mã ngoại ngữ</TableHead>
-                                    </TableRow>
-                                </TableHeader>
+                                    <TableBody>
+                                        <TableRow>
+                                            {subjects?.map((subject) => {
+                                                const score = scores?.find(
+                                                    (s) =>
+                                                        s.maMon ===
+                                                        subject.maMon
+                                                );
 
-                                <TableBody>
-                                    <TableRow>
-                                        {subjects?.map((subject) => {
-                                            const score = scores?.find(
-                                                (s) => s.maMon === subject.maMon
-                                            );
+                                                return (
+                                                    <TableCell
+                                                        key={subject.id}
+                                                        className="text-center"
+                                                    >
+                                                        {score
+                                                            ? score.diem
+                                                            : "-"}
+                                                    </TableCell>
+                                                );
+                                            })}
 
-                                            return (
-                                                <TableCell key={subject.id}>
-                                                    {score ? score.diem : "-"}
-                                                </TableCell>
-                                            );
-                                        })}
-
-                                        <TableCell>{maNgoaiNgu}</TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
+                                            <TableCell className="text-center">
+                                                {maNgoaiNgu}
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </div>
                         ) : (
-                            <p className="text-base font-medium">
+                            <p className="text-sm md:text-base font-medium text-muted-foreground">
                                 Detailed view of search scores here!
                             </p>
                         )}

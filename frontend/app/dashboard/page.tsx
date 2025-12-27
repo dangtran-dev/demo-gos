@@ -21,21 +21,9 @@ export default function DashboardPage() {
             value: item.excellent,
             fill: "var(--color-excellent)",
         },
-        {
-            level: "good",
-            value: item.good,
-            fill: "var(--color-good)",
-        },
-        {
-            level: "average",
-            value: item.average,
-            fill: "var(--color-average)",
-        },
-        {
-            level: "poor",
-            value: item.poor,
-            fill: "var(--color-poor)",
-        },
+        { level: "good", value: item.good, fill: "var(--color-good)" },
+        { level: "average", value: item.average, fill: "var(--color-average)" },
+        { level: "poor", value: item.poor, fill: "var(--color-poor)" },
     ];
 
     const { data: reports } = useQuery({
@@ -49,9 +37,9 @@ export default function DashboardPage() {
     });
 
     return (
-        <div className="pt-10">
-            <div className="w-5xl mx-auto space-y-8">
-                <div className="grid grid-cols-2 gap-5">
+        <div className="pt-6 md:pt-10">
+            <div className="max-w-6xl mx-auto px-4 md:px-6 space-y-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {reports?.map((item) => (
                         <SubjectChart
                             key={item.subject}
@@ -61,25 +49,21 @@ export default function DashboardPage() {
                     ))}
                 </div>
 
-                <div>
-                    <Card>
-                        <CardHeader className="text-2xl font-bold">
-                            Top 10 thí sinh có điểm khối A cao nhất
-                        </CardHeader>
+                <Card>
+                    <CardHeader className="text-lg md:text-2xl font-bold">
+                        Top 10 thí sinh có điểm khối A cao nhất
+                    </CardHeader>
 
-                        <CardContent>
+                    <CardContent className="p-0 md:p-6">
+                        <div className="overflow-x-auto">
                             <Table>
                                 <TableHeader>
                                     <TableRow>
                                         <TableHead>Số báo danh</TableHead>
-
-                                        <TableHead>Điểm toán</TableHead>
-
-                                        <TableHead>Điểm lí</TableHead>
-
-                                        <TableHead>Điểm hoá</TableHead>
-
-                                        <TableHead>Tổng điểm</TableHead>
+                                        <TableHead>Toán</TableHead>
+                                        <TableHead>Lý</TableHead>
+                                        <TableHead>Hoá</TableHead>
+                                        <TableHead>Tổng</TableHead>
                                     </TableRow>
                                 </TableHeader>
 
@@ -87,27 +71,23 @@ export default function DashboardPage() {
                                     {list?.map((item) => (
                                         <TableRow key={item.sbd}>
                                             <TableCell>{item.sbd}</TableCell>
-
                                             <TableCell>{item.math}</TableCell>
-
                                             <TableCell>
                                                 {item.physics}
                                             </TableCell>
-
                                             <TableCell>
                                                 {item.chemistry}
                                             </TableCell>
-
-                                            <TableCell>
+                                            <TableCell className="font-semibold">
                                                 {item.totalScore}
                                             </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
                             </Table>
-                        </CardContent>
-                    </Card>
-                </div>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     );
