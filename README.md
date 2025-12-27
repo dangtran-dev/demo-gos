@@ -30,7 +30,7 @@ Hướng dẫn chạy ứng dụng:
     - npm run start:dev
 
 4. Chạy frontend (NextJS):
-    - Cấu hình biến môi trường trong file `.env.local`.
+    - Cấu hình biến môi trường trong file `.env`.
       NEXT_PUBLIC_API_URL=http://localhost:3333
     - cd frontend
     - npm install
