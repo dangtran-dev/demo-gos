@@ -26,7 +26,7 @@ Hướng dẫn chạy ứng dụng:
     - cd backend
     - npm install
     - npx prisma generate
-    - npx prisma migrate --name init
+    - npx prisma migrate dev --name init
     - npx prisma db seed
     - npm run start:dev
 
